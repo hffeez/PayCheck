@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PayCheck - EMI Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="page">
+
+    <div class="header">
+      <h1>PayCheck</h1>
+      <p>Understand the true cost of your loan with precise clarity.</p>
+    </div>
+
+    <div class="loan-tabs">
+      <button class="tab active" onclick="setTab(this, 'home')">Home Loan</button>
+      <button class="tab" onclick="setTab(this, 'car')">Car Loan</button>
+      <button class="tab" onclick="setTab(this, 'personal')">Personal Loan</button>
+    </div>
+
+    <div class="card">
+
+      <div class="input-row">
+        <label>Loan Amount</label>
+        <div class="amount-box">
+          <span class="rupee">₹</span>
+          <input type="number" id="amountInput" value="100000" min="10000" max="100000000" onchange="syncFromInput('amount')" />
+        </div>
+      </div>
+      <input type="range" id="amountSlider" min="10000" max="10000000" step="50000" value="100000" oninput="syncFromSlider('amount')" />
+      <div class="range-labels">
+        <span>₹10000</span>
+        <span>₹10Cr</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="input-row">
+        <label>Interest Rate (p.a.)</label>
+        <div class="amount-box small">
+          <input type="number" id="rateInput" value="10" min="1" max="30" step="0.1" onchange="syncFromInput('rate')" />
+          <span class="percent">%</span>
+        </div>
+      </div>
+      <input type="range" id="rateSlider" min="1" max="30" step="0.1" value="10" oninput="syncFromSlider('rate')" />
+      <div class="range-labels">
+        <span>1%</span>
+        <span>30%</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="input-row">
+        <label>Loan Tenure</label>
+        <div class="tenure-box">
+          <input type="number" id="tenureInput" value="10" min="1" max="50" onchange="syncFromInput('tenure')" />
+          <button class="unit-btn active" id="yearBtn" onclick="setUnit('years')">Years</button>
+          <button class="unit-btn" id="monthBtn" onclick="setUnit('months')">Months</button>
+        </div>
+      </div>
+      <input type="range" id="tenureSlider" min="1" max="50" step="1" value="10" oninput="syncFromSlider('tenure')" />
+      <div class="range-labels">
+        <span>1 years</span>
+        <span>50 years</span>
+      </div>
+
+    </div>
+
+    <div class="card results-card">
+      <p class="results-title">Your Repayment Details</p>
+
+      <div class="emi-section">
+        <p class="emi-label">Monthly EMI</p>
+        <h2 class="emi-value" id="emiDisplay">₹0</h2>
+      </div>
+
+      <div class="chart-section">
+        <canvas id="donutChart" width="180" height="180"></canvas>
+      </div>
+
+      <div class="breakdown">
+        <div class="breakdown-row">
+          <div class="dot blue"></div>
+          <span>Principal Amount</span>
+          <span id="principalDisplay" class="amount-val">₹0</span>
+        </div>
+        <div class="breakdown-row">
+          <div class="dot gray"></div>
+          <span>Total Interest</span>
+          <span id="interestDisplay" class="amount-val">₹0</span>
+        </div>
+        <div class="divider"></div>
+        <div class="breakdown-row total-row">
+          <span>Total Amount Payable</span>
+          <span id="totalDisplay" class="amount-val bold">₹0</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
